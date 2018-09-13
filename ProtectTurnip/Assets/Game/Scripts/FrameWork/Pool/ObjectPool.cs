@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool
+public class ObjectPool : Singleton<ObjectPool>
 {
     public string ResourcesDir = "";
 
