@@ -12,7 +12,7 @@ public class Level
     public string Road;
     //初始金币
     public int InitScore;
-    //炮塔可防止的位置
+    //炮塔可放置的位置
     public List<Point> Holders = new List<Point>();
     //怪物行走路径集合
     public List<Point> Path = new List<Point>();

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Round
 {
-    public int Monster { get; set; }
-    public int Count { get; set; }
+    public int Monster;
+    public int Count;
 
     public Round(int monster, int count)
     {
