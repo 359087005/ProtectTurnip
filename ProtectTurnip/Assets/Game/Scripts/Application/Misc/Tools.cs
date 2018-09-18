@@ -10,8 +10,7 @@ public class Tools
     //获取关卡列表信息
     public static List<FileInfo> GetLevelFiles()
     {
-        string[] files = Directory.GetFiles(Constant.LevelDir, "*.xml");
-
+        string[] files = Directory.GetFiles(Constant.LevelDir,"*.xml");
         List<FileInfo> list = new List<FileInfo>();
         for (int i = 0; i < files.Length; i++)
         {
@@ -32,7 +31,7 @@ public class Tools
         doc.Load(sr);
 
         level.Name = doc.SelectSingleNode("/Level/Name").InnerText;
-        level.Background = doc.SelectSingleNode("/Level/BackGround").InnerText;
+        level.Background = doc.SelectSingleNode("/Level/Background").InnerText;
         level.Road = doc.SelectSingleNode("/Level/Road").InnerText;
         level.InitScore = int.Parse(doc.SelectSingleNode("/Level/InitScore").InnerText);
 
@@ -58,7 +57,7 @@ public class Tools
 
             level.Path.Add(p);
         }
-        nodes = doc.SelectNodes("Level/Rounds/Round");
+        nodes = doc.SelectNodes("Level/Round/Round");
 
         for (int i = 0; i < nodes.Count; i++)
         {

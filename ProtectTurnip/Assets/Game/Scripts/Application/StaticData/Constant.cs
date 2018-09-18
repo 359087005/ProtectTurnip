@@ -5,8 +5,8 @@ using UnityEngine;
 public static class Constant
 {
     //目录
-    public static readonly string LevelDir = @"Game\Res\Levels";
+    public static readonly string LevelDir =Application.dataPath + @"\Game\Res\Levels";
 
     //地图
-    public static readonly string MapDir = @"Game\Res\Maps";
+    public static readonly string MapDir =Application.dataPath +  @"\Game\Res\Maps";
 }

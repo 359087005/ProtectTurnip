@@ -39,6 +39,7 @@ public class Map : MonoBehaviour
     {
         set
         {
+            
             SpriteRenderer render = transform.Find("Background").GetComponent <SpriteRenderer> ();
             StartCoroutine(Tools.LoadImage(value, render));
         }
@@ -51,6 +52,11 @@ public class Map : MonoBehaviour
             SpriteRenderer render = transform.Find("Board").GetComponent <SpriteRenderer>();
             StartCoroutine(Tools.LoadImage(value, render));
         }
+    }
+
+    public Level Level
+    {
+        get { return level; }
     }
 
     public List<Tile> Grid { get { return gridList; } }
@@ -92,14 +98,14 @@ public class Map : MonoBehaviour
             Tile t = GetTile(p.X, p.Y);
             roadList.Add(t);
         }
-
         //炮塔空地
         for (int i = 0; i < level.Holders.Count; i++)
         {
-            Point p = level.Path[i];
+            Point p = level.Holders[i];
             Tile t = GetTile(p.X, p.Y);
             t.CanHold = true;
         }
+        
     }
 
     /// <summary>
@@ -169,6 +175,34 @@ public class Map : MonoBehaviour
             Vector2 from = new Vector2(-MapWidth / 2 + col * TileWidth, -MapHeight / 2 + MapHeight);
             Vector2 to = new Vector2(-MapWidth / 2 + col * TileWidth, -MapHeight / 2 );
             Gizmos.DrawLine(from, to);
+        }
+
+        //画出塔的位置
+        foreach (Tile item in gridList)
+        {
+            if (item.CanHold)
+            {
+                Vector3 pos = GetPosition(item);
+                Gizmos.DrawIcon(pos,"holder.png",true);
+            }
+        }
+
+        //画路线
+        Gizmos.color = Color.red;
+        for (int i = 0; i < roadList.Count; i++)
+        {
+            if (i == 0)
+                Gizmos.DrawIcon(GetPosition(roadList[i]),"start.png",true);
+
+            if (roadList.Count > 1 && i != 0)
+            {
+                Vector3 from = GetPosition(roadList[i-1]);
+                Vector3 to = GetPosition(roadList[i]);
+                Gizmos.DrawLine(from,to);
+            }
+
+            if (roadList.Count > 1 && i == roadList.Count - 1)
+                Gizmos.DrawIcon(GetPosition(roadList[i]), "end.png", true);
         }
     }
 

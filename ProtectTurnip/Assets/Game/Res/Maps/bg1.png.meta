@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fcc000767cf57c249ad892e5fc2d0daa
-timeCreated: 1537164088
+guid: 91fd0569fee99c34a988e8f843f3db21
+timeCreated: 1537164126
 licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BG-hd_0
+    21300000: BG1-hd_0
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -23,7 +23,7 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
-  isReadable: 1
+  isReadable: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -41,12 +41,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 9
-  spritePivot: {x: 0.5, y: 0.75}
-  spriteBorder: {x: 0, y: 544, z: 65, w: 0}
+  spritePivot: {x: 0.47241834, y: 0.6835244}
+  spriteBorder: {x: 0, y: 385, z: 65, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -91,13 +91,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG-hd_0
+      name: BG1-hd_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 544
+        y: 384
         width: 960
-        height: 480
+        height: 640
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
