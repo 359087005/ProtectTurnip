@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Controller
+public abstract class Controller 
 {
     //获取模型
     protected Model GetModel<T>() where T:Model

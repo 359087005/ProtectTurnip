@@ -1,6 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
+public class TileClickEventArgs : EventArgs
+{
+    public int MouseButton;
+    public Tile Tile;
+
+    public TileClickEventArgs(int mouseButton,Tile tile)
+    {
+        this.MouseButton = mouseButton;
+        this.Tile = tile;
+    }
+}
+
 
 /// <summary>
 /// 用于描述一个关卡地图的状态
@@ -15,6 +30,9 @@ public class Map : MonoBehaviour
     #endregion
 
     #region  事件
+
+    public event EventHandler<TileClickEventArgs> onTileClick;
+
     #endregion
 
     #region  字段
@@ -89,8 +107,8 @@ public class Map : MonoBehaviour
         Clear();
         this.level = level;
         //加载图片
-        this.BackgroundImage = "file://" + Constant.MapDir + level.Background;
-        this.RoadImage = "file://" + Constant.MapDir + level.Road;
+        this.BackgroundImage = "file://" + Constant.MapDir +"/"+ level.Background;
+        this.RoadImage = "file://" + Constant.MapDir  +"/" + level.Road;
         //寻路路径
         for (int i = 0; i < level.Path.Count; i++)
         {
@@ -144,11 +162,45 @@ public class Map : MonoBehaviour
         {
             for (int j = 0; j < ColumnCount; j++)
             {
-                gridList.Add(new Tile(i,j));
+                gridList.Add(new Tile(j,i));
             }
         }
 
+        onTileClick += Map_onTileClick;
+
     }
+
+   
+
+    public void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Tile t = GetTileUnderMouse();
+            if (t != null)
+            {
+                TileClickEventArgs e = new TileClickEventArgs(0,t);
+                if (onTileClick != null)
+                {
+                    onTileClick(this,e);
+                }
+            }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Tile t = GetTileUnderMouse();
+            if (t != null)
+            {
+                TileClickEventArgs e = new TileClickEventArgs(1, t);
+                if (onTileClick != null)
+                {
+                    onTileClick(this, e);
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// 只在编辑器起作用
     /// </summary>
@@ -209,6 +261,27 @@ public class Map : MonoBehaviour
     #endregion
 
     #region  事件回调
+    private void Map_onTileClick(object sender, TileClickEventArgs e)
+    {
+        if (level == null) return;
+
+        //处理放塔操作
+        if (e.MouseButton == 0 && !roadList.Contains(e.Tile))
+        {
+            e.Tile.CanHold = !e.Tile.CanHold;
+        }
+        //处理寻路点操作
+        if (e.MouseButton == 1 && !e.Tile.CanHold)
+        {
+            if (roadList.Contains(e.Tile))
+            {
+                roadList.Remove(e.Tile);
+            }
+            else
+                roadList.Add(e.Tile);
+        }
+        else { }
+    }
 
     #endregion
 
@@ -224,8 +297,8 @@ public class Map : MonoBehaviour
         Vector3 p1 = Camera.main.ViewportToWorldPoint(new Vector3(0, 0));
         Vector3 p2 = Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
 
-        MapWidth = p2.x - p1.x;
-        MapHeight = p2.y - p1.y;
+        MapWidth = Mathf.Abs(p2.x - p1.x);
+        MapHeight = Mathf.Abs(p2.y - p1.y);
 
         //求得每一个格子的宽高   屏幕宽 除以列   屏幕高 除以行
         TileWidth = MapWidth / ColumnCount;

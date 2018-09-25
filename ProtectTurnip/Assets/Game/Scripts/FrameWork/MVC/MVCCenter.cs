@@ -16,6 +16,11 @@ public static class MVCCenter
     }
     public static void RegisterView(View v)
     {
+        //防止重复注册
+        if (_viewlDict.ContainsKey(v.Name))
+            _viewlDict.Remove(v.Name);
+        //注册关心的事件
+        v.RegisterEvents();
         _viewlDict[v.Name] = v;
     }
     public static void RegisterController(string eventName,Type t)
