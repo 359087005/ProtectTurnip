@@ -7,7 +7,7 @@ public static class Constant
     //目录
     public static readonly string LevelDir = Application.dataPath + @"\Game\Resources\Res\Levels";
     public static readonly string MapDir = Application.dataPath + @"\Game\Resources\Res\Maps";
-
+    public static readonly string CardsDir = Application.dataPath + @"\Game\Resources\Res\Cards";
     //存档
 
     //Model

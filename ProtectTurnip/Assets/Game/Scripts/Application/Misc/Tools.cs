@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tools
 {
@@ -142,6 +143,20 @@ public class Tools
         render.sprite = sp;
     }
 
+    public static IEnumerator LoadImage(string url, Image image)
+    {
+        WWW www = new WWW(url);
 
+        while (!www.isDone)
+        {
+            yield return www;
+        }
+        Texture2D texture = www.texture;
+        Sprite sp = Sprite.Create(texture,
+            new Rect(0, 0, texture.width, texture.height),
+            new Vector2(0.5f, 0.5f)
+            );
+        image.sprite = sp;
+    }
 
 }
